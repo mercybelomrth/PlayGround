@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hello — Website</title>
+<meta name="description" content="A friendly Hello website." />
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg1: #0f172a;
+    --bg2: #1e1b4b;
+    --card: rgba(255, 255, 255, 0.08);
+    --text: #f8fafc;
+    --muted: #cbd5e1;
+    --accent: #38bdf8;
+    --accent2: #a78bfa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    font-family: ui-sans-system, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(800px 500px at 20% 15%, rgba(56,189,248,.25), transparent 60%),
+      radial-gradient(700px 500px at 85% 80%, rgba(167,139,250,.28), transparent 60%),
+      linear-gradient(135deg, var(--bg1), var(--bg2));
+  }
+  main {
+    width: min(680px, 100%);
+    text-align: center;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 24px;
+    padding: clamp(28px, 5vw, 56px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+  .pill {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,.18);
+    padding: 8px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    margin: 0 0 12px;
+    font-size: clamp(48px, 9vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(90deg, #fff, var(--accent), var(--accent2), #fff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+  p {
+    margin: 0 0 24px;
+    color: var(--muted);
+    font-size: clamp(16px, 2.5vw, 19px);
+    line-height: 1.6;
+  }
+  .row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  button {
+    appearance: none;
+    border: 0;
+    border-radius: 999px;
+    padding: 13px 22px;
+    font-size: 16px;
+    font-weight: 650;
+    cursor: pointer;
+    color: #0f172a;
+    background: #fff;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  button:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,255,255,.25); }
+  button.secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,.25);
+    box-shadow: none;
+  }
+  #message {
+    min-height: 24px;
+    margin-top: 18px;
+    font-size: 16px;
+    color: #fff;
+  }
+  time {
+    display: block;
+    margin-top: 22px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    h1 { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <span class="pill">Website</span>
+  <h1>Hello</h1>
+  <p>Welcome to your new website. This is a lightweight static page — fast, responsive, and ready to remix.</p>
+  <div class="row">
+    <button id="helloBtn" type="button">Say hello 👋</button>
+    <button id="timeBtn" class="secondary" type="button">Show local time</button>
+  </div>
+  <div id="message" role="status" aria-live="polite"></div>
+  <time id="clock"></time>
+</main>
+<script>
+  const message = document.getElementById('message');
+  const clock = document.getElementById('clock');
+  const hellos = ['Hello!', 'Hola!', 'Bonjour!', 'Hallo!', 'Ciao!', 'Konnichiwa!', 'Hello, world!'];
+  let i = 0;
+  document.getElementById('helloBtn').addEventListener('click', () => {
+    message.textContent = hellos[i % hellos.length];
+    i += 1;
+  });
+  document.getElementById('timeBtn').addEventListener('click', () => {
+    message.textContent = 'Local time: ' + new Date().toLocaleTimeString();
+  });
+  function tick() {
+    clock.textContent = new Date().toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' });
+  }
+  tick();
+  setInterval(tick, 30000);
+</script>
+</body>
+</html>
